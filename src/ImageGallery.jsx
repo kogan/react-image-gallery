@@ -59,7 +59,8 @@ export default class ImageGallery extends React.Component {
       currentIndex: props.startIndex,
       thumbsTranslateX: 0,
       offsetPercentage: 0,
-      galleryWidth: 0
+      galleryWidth: 0,
+      thumbnailWidth: 0,
     };
   }
 
@@ -210,8 +211,9 @@ export default class ImageGallery extends React.Component {
 
   _handleResize() {
     if (this._thumbnailContainer) {
-      this.setState({galleryWidth: this._thumbnailContainer.offsetWidth});
-    } else if (this._imageGallery) {
+      this.setState({thumbnailWidth: this._thumbnailContainer.offsetWidth});
+    }
+    if (this._imageGallery) {
       this.setState({galleryWidth: this._imageGallery.offsetWidth});
     }
   }
@@ -355,15 +357,15 @@ export default class ImageGallery extends React.Component {
       return 0;
     }
 
-    const {galleryWidth} = this.state;
+    const {thumbnailWidth} = this.state;
 
     if (this._thumbnails) {
-      if (this._thumbnails.scrollWidth <= galleryWidth) {
+      if (this._thumbnails.scrollWidth <= thumbnailWidth) {
         return 0;
       }
       let totalThumbnails = this._thumbnails.children.length;
       // total scroll-x required to see the last thumbnail
-      let totalScrollX = this._thumbnails.scrollWidth - galleryWidth;
+      let totalScrollX = this._thumbnails.scrollWidth - thumbnailWidth;
       // scroll-x required per index change
       let perIndexScrollX = totalScrollX / (totalThumbnails - 1);
 
