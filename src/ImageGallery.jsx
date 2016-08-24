@@ -209,7 +209,9 @@ export default class ImageGallery extends React.Component {
   }
 
   _handleResize() {
-    if (this._imageGallery) {
+    if (this._thumbnailContainer) {
+      this.setState({galleryWidth: this._thumbnailContainer.offsetWidth});
+    } else if (this._imageGallery) {
       this.setState({galleryWidth: this._imageGallery.offsetWidth});
     }
   }
@@ -692,7 +694,7 @@ export default class ImageGallery extends React.Component {
 
         {
           this.props.showThumbnails &&
-            <div className='image-gallery-thumbnails'>
+            <div ref={i => this._thumbnailContainer = i} className='image-gallery-thumbnails'>
               <div
                 ref={t => this._thumbnails = t}
                 className='image-gallery-thumbnails-container'
